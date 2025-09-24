@@ -1,0 +1,55 @@
+muiz-calculator/
+│── app.js
+│── package.json
+│── node_modules/
+│── my_module/
+│     ├── calculator.js
+│     └── formatter.js
+mkdir muiz-calculator
+cd muiz-calculator
+npm init -y
+npm install chalk
+// Basic arithmetic functions
+export function add(a, b) {
+  return a + b;
+}
+
+export function subtract(a, b) {
+  return a - b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+
+export function divide(a, b) {
+  if (b === 0) return "Error: Division by zero!";
+  return a / b;
+}
+// Simple formatter module
+export function formatName(name) {
+  return name.toUpperCase();
+}
+// Import local (built-in) Node.js module
+import path from "path";
+
+// Import third-party module
+import chalk from "chalk";
+
+// Import custom modules
+import { add, subtract, multiply, divide } from "./my_module/calculator.js";
+import { formatName } from "./my_module/formatter.js";
+
+// Display current file basename using "path"
+console.log(chalk.blue("Current file:"), path.basename(import.meta.url));
+
+// Calculator operations with chalk colors
+console.log(chalk.green("Addition (5 + 3):"), add(5, 3));
+console.log(chalk.red("Subtraction (10 - 4):"), subtract(10, 4));
+console.log(chalk.yellow("Multiplication (6 * 7):"), multiply(6, 7));
+console.log(chalk.magenta("Division (20 / 5):"), divide(20, 5));
+console.log(chalk.red("Division by zero test:"), divide(10, 0));
+
+// Using formatter module
+console.log(chalk.cyan("Formatted Name:"), formatName("muiz"));
+node app.js
